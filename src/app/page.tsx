@@ -1,5 +1,6 @@
 'use client'
 
+import Root from "@/pages/Root";
 import Card from "@/components/promotion/card/Card"
 export default function Home() {
 
@@ -21,6 +22,8 @@ export default function Home() {
   return(
     <>
     <Card promotion={Promotion}/>
+    <Root/>
+
     </>
   )
 }
