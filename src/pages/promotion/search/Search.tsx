@@ -1,10 +1,24 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { SetStateAction, useEffect, useState } from 'react'
+import Card from '@/components/promotion/card/Card'
+
+type Comment = {
+  id: number;
+  comment: string;
+};
 
 type Props = {
-  id: string
+  id: number
   title: string
+  price: number
+  imageUrl: string
+  url: string;
+  comments: Comment[]
+  load: boolean
+  setLoad: React.Dispatch<React.SetStateAction<boolean>>
+  
 }
+
 
 
 
@@ -12,6 +26,7 @@ type Props = {
 const Search = () => {
 
   const [promo, setPromo] = useState<Props[]>([])
+  const [load, setLoad] = useState(false)
 
  useEffect(()=> {
 
@@ -23,20 +38,37 @@ const Search = () => {
   }).then((data)=>{
     setPromo(data)
     console.log(data)
+    
   }).catch((error)=> {
     console.log('Error fetching data:', error)
   })
 
+
+  setTimeout(() => {
+    setLoad(true);
+  },1000);
+
  },[])
 
 
-
+ 
   return (
     <div>
-      <p>feth</p>
-      <div>{promo.map((item)=>(
-        <p key={item.id}>{item.title}</p>
-      ))}</div>
+      {
+        !load && (
+          <h2>loading...</h2>
+        )
+      }
+
+     { load && (
+        <div>
+                <div>{promo.map((item)=>(
+          <Card key={item.id} promotion={item}/>
+                ))}</div>
+        </div>
+      )}
+
+
     </div>
   )
 }
