@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from 'react'
 import Card from '@/components/promotion/card/Card'
+import * as S from './style'
+
 
 type Comment = {
   id: number;
@@ -19,14 +21,12 @@ type Props = {
   
 }
 
-
-
-
-
 const SearchPromotion = () => {
 
+  
   const [promo, setPromo] = useState<Props[]>([])
   const [load, setLoad] = useState(false)
+    
 
  useEffect(()=> {
 
@@ -37,8 +37,6 @@ const SearchPromotion = () => {
     return res.json()
   }).then((data)=>{
     setPromo(data)
-    console.log(data)
-    
   }).catch((error)=> {
     console.log('Error fetching data:', error)
   })
@@ -61,11 +59,17 @@ const SearchPromotion = () => {
       }
 
      { load && (
-        <div>
-                <div>{promo.map((item)=>(
+        <S.PromoSearch>
+          <S.SearchHeader>
+            <h1>Promo Show</h1>
+            <input type="search" />
+          </S.SearchHeader>
+          <div>
+                  {promo.map((item)=>(
           <Card key={item.id} promotion={item}/>
-                ))}</div>
+                ))}
         </div>
+        </S.PromoSearch>
       )}
 
 

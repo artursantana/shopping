@@ -1,56 +1,60 @@
-
 import Image from 'next/image';
-import * as S from './style'
+import * as S from './style';
+import Modal from '../../UI/modal/Modal';
+import { useState } from 'react';
 
 type Comment = {
-    id: number
-    comment: string
-}
+  id: number;
+  comment: string;
+};
 
 type Promotion = {
-    id: number
-    title: string
-    price: number
-    imageUrl: string
-    url: string;
-    comments: Comment[]
-}
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  url: string;
+  comments: Comment[];
+};
 
 type Props = {
-    promotion: Promotion
-}
+  promotion: Promotion;
+};
 
+const Card: React.FC<Props> = ({ promotion }) => {
+  const [open, setOpen] = useState(false);
 
-const Card: React.FC<Props> = ({promotion}) => {
-  
+  const handleOpenModal = () => {
+    setOpen(!open);
+  };
+
   return (
     <S.Container>
-      <Image
-        loader={({src}) => src} src={promotion.imageUrl} width={200} height={200} alt=''
-      />
+      <Image loader={({ src }) => src} src={promotion.imageUrl} width={200} height={200} alt='' />
       <S.Info>
         <h1>{promotion.title}</h1>
-        <div className='price'>
-            R$ {promotion.price}
-        </div>
+        <div className='price'>R$ {promotion.price}</div>
         <footer>
-            {promotion.comments.length > 0 && (
-                <div className='promotion_card_comment'>{promotion.comments[0].comment} </div>
+          {promotion.comments.length > 0 && (
+            <div className='promotion_card_comment'>{promotion.comments[0].comment} </div>
+          )}
+
+          <div className='promotion_card_count'>
+            {promotion.comments.length}{' '}
+            {promotion.comments.length > 0 ? (
+              <button onClick={handleOpenModal}>Comments</button>
+            ) : (
+              <button onClick={handleOpenModal}>Comment</button>
             )}
-
-
-                <div className='promotion_card_count'>
-                {promotion.comments.length}
-                {' '}
-                {promotion.comments.length > 1 ? 'Comments' : 'Comment'}
-                </div>
-                <a href={promotion.url} target='blank'>Go to WebSite</a>
-
-
+          </div>
+          <a href={promotion.url} target='blank'>
+            Go to WebSite
+          </a>
         </footer>
+        <Modal isOpen={open} setIsOpen={setOpen} promotion={promotion} />
       </S.Info>
     </S.Container>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

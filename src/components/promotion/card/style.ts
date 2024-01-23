@@ -40,10 +40,14 @@ color: #2c3e50;
         color: #3498db;
 }
 
+button{
+    border: none;
+    background: none;
+}
+
 footer {
     display: flex;
-    align-items: center;
-
+    align-items: end;
 
     .promotion_card_count {
 
