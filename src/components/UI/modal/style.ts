@@ -22,7 +22,7 @@ export const SubContainer = styled.div`
 
 margin: auto;
 width: 350px;
-max-height: 550px;
+height: 550px;
 background-color: white;
 
 

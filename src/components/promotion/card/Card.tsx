@@ -23,14 +23,27 @@ type Props = {
 
 const Card: React.FC<Props> = ({ promotion }) => {
   const [open, setOpen] = useState(false);
+  const [promoti, setPromotion] = useState<Promotion>()
+
+  console.log(promotion.comments.length)
 
   const handleOpenModal = () => {
     setOpen(!open);
   };
 
+  const updatePromotion = (updatedPromotion: Promotion) => {
+    setPromotion(updatedPromotion);
+  };
+
   return (
     <S.Container>
-      <Image loader={({ src }) => src} src={promotion.imageUrl} width={200} height={200} alt='' />
+    <Image
+  loader={({ src }) => src}
+  src={promotion.imageUrl}
+  width={200}
+  height={200}
+  alt=''
+/>
       <S.Info>
         <h1>{promotion.title}</h1>
         <div className='price'>R$ {promotion.price}</div>
@@ -40,7 +53,7 @@ const Card: React.FC<Props> = ({ promotion }) => {
           )}
 
           <div className='promotion_card_count'>
-            {promotion.comments.length}{' '}
+            {`${promotion.comments.length}`}{' '}
             {promotion.comments.length > 0 ? (
               <button onClick={handleOpenModal}>Comments</button>
             ) : (
@@ -51,7 +64,7 @@ const Card: React.FC<Props> = ({ promotion }) => {
             Go to WebSite
           </a>
         </footer>
-        <Modal isOpen={open} setIsOpen={setOpen} promotion={promotion} />
+        <Modal isOpen={open} setIsOpen={setOpen} promotion={promotion} updatePromotion={updatePromotion} />
       </S.Info>
     </S.Container>
   );
