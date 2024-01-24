@@ -31,4 +31,13 @@ button{
     width: 100px;
 }
 
+
+.AbaComments{
+    display: flex;
+    flex-direction: row;
+    background-color: aqua;
+    text-align: center;
+    align-items: center;
+}
 `
+

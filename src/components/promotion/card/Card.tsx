@@ -25,8 +25,6 @@ const Card: React.FC<Props> = ({ promotion }) => {
   const [open, setOpen] = useState(false);
   const [promoti, setPromotion] = useState<Promotion>()
 
-  console.log(promotion.comments.length)
-
   const handleOpenModal = () => {
     setOpen(!open);
   };
@@ -53,7 +51,7 @@ const Card: React.FC<Props> = ({ promotion }) => {
           )}
 
           <div className='promotion_card_count'>
-            {`${promotion.comments.length}`}{' '}
+            
             {promotion.comments.length > 0 ? (
               <button onClick={handleOpenModal}>Comments</button>
             ) : (

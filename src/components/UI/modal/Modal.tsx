@@ -28,26 +28,34 @@ const Modal: React.FC<Props> = ({ isOpen, setIsOpen, promotion, updatePromotion 
   const [visibleComments, setVisibleComments] = useState<Comment[]>(promotion.comments);
 
   const handleCommentSubmit = () => {
-
+    // Criar o objeto do novo comentário
     const newCommentObj = {
       id: uuidv4(),
       comment: newComment,
       promotionId: promotion.id,
     };
-
+    
+  
+    // Atualizar o objeto de promoção
     const updatedPromotion = {
       ...promotion,
       comments: [...promotion.comments, newCommentObj],
     };
-  
-    updatePromotion(updatedPromotion);
+    console.log(updatedPromotion)
 
+    updatePromotion(updatedPromotion);
+    
     setNewComment('');
   
     setVisibleComments((prevComments) => [...prevComments, newCommentObj]);
-    console.log(newCommentObj)
   };
+
   
+  
+
+  useEffect(() => {
+    setVisibleComments(promotion.comments);
+  }, [promotion]);
   
 
   if (isOpen) {
@@ -65,7 +73,7 @@ const Modal: React.FC<Props> = ({ isOpen, setIsOpen, promotion, updatePromotion 
               ></textarea>
               <button onClick={handleCommentSubmit}>submit</button>
             </div>
-            <h2>Comments: </h2>
+              <h2> {} Comments: </h2>
             {visibleComments.map((comment) => (
               <p key={comment.id}>{comment.comment}</p>
             ))}
